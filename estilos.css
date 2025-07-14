@@ -1,58 +1,44 @@
-// script.js
-
-const ramos = [
-  { id: 'r1', nombre: 'Principios Matemáticos', requisitos: [] },
-  { id: 'r2', nombre: 'Biología Celular', requisitos: [] },
-  { id: 'r3', nombre: 'Fundamentos en Bioquímica', requisitos: ['r2'] },
-  { id: 'r4', nombre: 'Fisiología', requisitos: ['r2'] },
-  { id: 'r5', nombre: 'Fisiopatología', requisitos: ['r4'] },
-  { id: 'r6', nombre: 'Bioquímica Clínica I', requisitos: ['r3'] },
-  { id: 'r7', nombre: 'Bioquímica Clínica II', requisitos: ['r6'] },
-  { id: 'r8', nombre: 'Microbiología Básica', requisitos: ['r2'] },
-  { id: 'r9', nombre: 'Microbiología Clínica', requisitos: ['r8'] },
-  { id: 'r10', nombre: 'Parasitología Clínica', requisitos: ['r8'] },
-  { id: 'r11', nombre: 'Hematología Básica', requisitos: ['r3'] },
-  { id: 'r12', nombre: 'Hematología Clínica', requisitos: ['r11'] },
-  { id: 'r13', nombre: 'Inmunología Básica', requisitos: [] },
-  { id: 'r14', nombre: 'Inmunología Clínica', requisitos: ['r13'] },
-  { id: 'r15', nombre: 'Inmunohematología', requisitos: ['r14'] },
-  { id: 'r16', nombre: 'Medicina Transfusional', requisitos: ['r15'] },
-];
-
-const container = document.getElementById('malla');
-
-function createRamo(ramo) {
-  const div = document.createElement('div');
-  div.classList.add('ramo');
-  div.id = ramo.id;
-  div.textContent = ramo.nombre;
-
-  if (ramo.requisitos.length > 0) {
-    div.classList.add('locked');
-  }
-
-  div.addEventListener('click', () => {
-    if (!div.classList.contains('locked')) {
-      div.classList.toggle('approved');
-      actualizarEstado();
-    }
-  });
-
-  return div;
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff0f5;
+  color: #4b004b;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
 }
 
-function actualizarEstado() {
-  ramos.forEach(ramo => {
-    const div = document.getElementById(ramo.id);
-    if (ramo.requisitos.every(id => document.getElementById(id).classList.contains('approved'))) {
-      div.classList.remove('locked');
-    } else if (!div.classList.contains('approved')) {
-      div.classList.add('locked');
-    }
-  });
+h1 {
+  color: #cc0077;
+  margin-bottom: 20px;
 }
 
-// Inicialización
-ramos.forEach(r => container.appendChild(createRamo(r)));
-actualizarEstado();
-      
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(150px, 1fr));
+  gap: 10px;
+  padding: 20px;
+}
+
+.ramo {
+  background-color: #ffcce5;
+  border: 2px solid #cc0077;
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+  text-align: center;
+}
+
+.ramo.bloqueado {
+  background-color: #f9f9f9;
+  border-color: #ddd;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.ramo.aprobado {
+  background-color: #f06292;
+  color: white;
+  border-color: #ad1457;
+}
