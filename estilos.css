@@ -1,3 +1,4 @@
+/* --- Estilos generales --- */
 body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #fff0f5;
@@ -12,33 +13,79 @@ h1 {
   margin-bottom: 20px;
 }
 
+/* --- Contenedor de ramos --- */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(10, minmax(150px, 1fr));
   gap: 10px;
   padding: 20px;
+  justify-items: stretch;
 }
 
+/* --- Estilo base de cada ramo --- */
 .ramo {
   background-color: #ffcce5;
   border: 2px solid #cc0077;
-  padding: 10px;
+  padding: 12px 8px;
   border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   font-size: 14px;
   text-align: center;
+  user-select: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  word-break: break-word;
 }
 
+/* --- Estado bloqueado (no aprobado ni habilitado) --- */
 .ramo.bloqueado {
-  background-color: #f9f9f9;
-  border-color: #ddd;
+  background-color: #f0f0f0;
+  border-color: #ccc;
   color: #aaa;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
+/* --- Estado aprobado (clickeado) --- */
 .ramo.aprobado {
   background-color: #f06292;
-  color: white;
+  color: #fff;
   border-color: #ad1457;
+  font-weight: bold;
+}
+
+/* --- Hover solo para ramos habilitados --- */
+.ramo:not(.bloqueado):hover {
+  background-color: #ff99cc;
+  transform: scale(1.03);
+}
+
+/* --- Responsive: grid adaptable a pantallas pequeñas --- */
+@media (max-width: 1200px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .ramo {
+    font-size: 12px;
+    padding: 10px 6px;
+  }
+}
+
+/* --- Scroll horizontal opcional si la malla es muy ancha --- */
+body {
+  overflow-x: auto;
 }
